@@ -260,7 +260,7 @@ bin/cork update \
 
 stage('Build') {
     if (true) {  /* Limit the parallel builds to avoid scheduling failures.  */
-        def parallel_max = 2
+        def parallel_max = 4
         /* Make this ugly for serializability again.  */
         ArrayList<Closure> vm_builds = matrix_map.values()
         matrix_map = [:]
