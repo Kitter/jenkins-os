@@ -77,6 +77,12 @@ def keyring = ''
 def releaseBase = params.RELEASE_BASE
 
 node('coreos && amd64 && sudo') {
+    stage('Clean') {
+        /* Guess at whether this is an official build before cloning.  */
+        if (params.MANIFEST_REF ==~ /^v[0-9.]*$/)
+            cleanWs notFailBuild: true
+    }
+
     stage('SCM') {
         checkout scm: [
             $class: 'GitSCM',

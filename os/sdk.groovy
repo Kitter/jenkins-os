@@ -49,6 +49,11 @@ used to verify signed files and Git tags'''),
 ])
 
 node('coreos && amd64 && sudo') {
+    stage('Clean') {
+        if (params.COREOS_OFFICIAL == '1')
+            cleanWs notFailBuild: true
+    }
+
     stage('Build') {
         step([$class: 'CopyArtifact',
               fingerprintArtifacts: true,

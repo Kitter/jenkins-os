@@ -191,6 +191,9 @@ for (format in format_list) {
         def version = ''
 
         node('coreos && amd64 && sudo') {
+            if (params.COREOS_OFFICIAL == '1')
+                cleanWs notFailBuild: true
+
             step([$class: 'CopyArtifact',
                   fingerprintArtifacts: true,
                   projectName: '/mantle/master-builder',

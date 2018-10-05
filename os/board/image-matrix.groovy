@@ -105,6 +105,11 @@ String torcxManifest = ''
 String version = ''
 
 node('coreos && amd64 && sudo') {
+    stage('Clean') {
+        if (params.COREOS_OFFICIAL == '1')
+            cleanWs notFailBuild: true
+    }
+
     stage('Build') {
         step([$class: 'CopyArtifact',
               fingerprintArtifacts: true,
